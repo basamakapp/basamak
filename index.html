@@ -77,7 +77,7 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{border-bottom:1
 .msg{align-self:flex-start;max-width:85%;background:var(--soft);border-radius:14px 14px 14px 4px;padding:8px 12px}
 .msg.me{align-self:flex-end;background:var(--acc);color:var(--onacc);border-radius:14px 14px 4px 14px}
 .msg small{display:block;font-size:.68rem;opacity:.7;margin-top:2px}
-.mrow{display:flex;gap:8px}.mrow input{flex:1;min-width:0}
+.mrow{display:flex;gap:8px}.mrow input{flex:1;min-width:0}.mrow select{width:auto;flex:0 0 44%;min-width:0}input[type=search]{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;font:inherit;-webkit-appearance:none;appearance:none}
 .nav button{font-size:.66rem}
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
 .fitem{display:flex;flex-direction:column;gap:6px;min-width:0}
@@ -97,6 +97,47 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{border-bottom:1
 .seg button small{font-weight:500;color:var(--mut);font-size:.75rem}
 .seg button.on{background:var(--card);color:var(--acc);box-shadow:var(--sh)}
 .miss{border-left:4px solid var(--bad);padding-left:10px}
+[hidden]{display:none!important}
+.gt{position:fixed;inset:0;z-index:60;overflow:auto;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--fg)}
+.gt.dk{background:#0d5f58;color:#fff}
+.gt .gin{max-width:480px;margin:0 auto;padding:0 max(22px,env(safe-area-inset-left,0px)) 28px}
+.gt .gart{position:relative;height:330px;background:#0d5f58;color:#fff;overflow:hidden}
+.gt .gart>svg{position:absolute;left:0;bottom:0;width:100%;height:150px}
+.gt .gl{position:absolute;top:28px;left:max(22px,env(safe-area-inset-left,0px));display:flex;gap:10px;align-items:center;font-weight:800;font-size:1.4rem}
+.gt .glg{width:38px;height:38px;border-radius:11px;background:#14a89a;display:grid;place-items:center}
+.gt .gtag{position:absolute;top:92px;left:max(22px,env(safe-area-inset-left,0px));right:22px;font-size:1.65rem;font-weight:800;line-height:1.2}
+.gt .gtag small{display:block;font-size:.9rem;font-weight:500;opacity:.85;margin-top:10px;line-height:1.45}
+.gt .gb{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border-radius:16px;padding:14px 16px;font-weight:800;font-size:1rem;margin-top:12px;border:1px solid var(--bd);background:var(--card);color:var(--fg)}
+.gt .gb.p{background:#0d5f58;color:#fff;border-color:#0d5f58}.gt .gb small{display:block;font-weight:500;font-size:.78rem;opacity:.78;margin-top:2px}
+.gt .gb[disabled]{opacity:.65}.gt .gsoon{margin-left:auto;font-size:.7rem;background:#fdecc8;color:#7a4b00;padding:3px 9px;border-radius:99px;font-weight:700}
+.gt .gfine{font-size:.76rem;color:var(--mut);text-align:center;line-height:1.5;margin-top:14px}
+.gt .gstp{display:flex;gap:6px;margin-top:26px}.gt .gstp i{flex:1;height:5px;border-radius:3px;background:var(--bd)}.gt .gstp i.on{background:#0d5f58}
+.gt h2.gh{font-size:1.6rem;font-weight:800;margin:20px 0 4px;line-height:1.2}
+.gt .gl2{font-size:.8rem;font-weight:700;margin:16px 0 6px;color:var(--mut)}
+.gt .gchips{display:flex;gap:8px;flex-wrap:wrap}.gt .gch{padding:9px 14px;border-radius:99px;border:1px solid var(--bd);background:var(--card);font-size:.88rem;font-weight:600;color:var(--fg)}.gt .gch.on{background:#0d5f58;color:#fff;border-color:#0d5f58}
+.gt .gerr{color:var(--bad);font-size:.85rem;margin-top:10px;font-weight:600}
+.gt .gkv{margin-top:16px;background:var(--soft);border-radius:14px;padding:12px 14px;font-size:.84rem;line-height:1.5;color:var(--fg)}
+.gt .gpin{display:flex;flex-direction:column;align-items:center;padding-top:60px}
+.gt .gdots{display:flex;gap:16px;margin:26px 0 6px}.gt .gdots i{width:16px;height:16px;border-radius:50%;border:2px solid #9be3d9}.gt .gdots i.on{background:#fff;border-color:#fff}
+.gt .gpad{display:grid;grid-template-columns:repeat(3,74px);gap:14px 22px;margin:22px 0 10px}
+.gt .gpad button{height:74px;border-radius:50%;background:rgba(255,255,255,.13);color:#fff;border:0;font-size:1.7rem;font-weight:700}
+.gt .gpad button.n{background:transparent;font-size:.9rem;opacity:.85}
+.gt .glnk{background:transparent;border:0;color:#c4f0e9;font-size:.85rem;margin-top:8px;padding:8px}
+.hero{background:var(--top);color:var(--ontop);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:6px max(16px,env(safe-area-inset-left,0px)) 0;position:relative}
+.hero .hi{font-size:.85rem;opacity:.8}.hero .hh{font-size:1.45rem;font-weight:800;line-height:1.2;margin:2px 0 16px;max-width:75%}
+.hero .stp{display:flex;gap:6px;align-items:flex-end}
+.hero .sp{flex:1;border-radius:12px 12px 0 0;padding:10px 12px;color:var(--fg);min-width:0}
+.hero .sp b{display:block;font-size:1.65rem;line-height:1}.hero .sp span{font-size:.72rem;font-weight:600;display:block;margin-top:3px}
+.hero .s1{background:var(--soft);min-height:68px}.hero .s2{background:var(--card);min-height:88px}.hero .s3{background:#fdecc8;color:#5a3a00;min-height:108px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero .s3{background:#4a3a12;color:#ffd98a}}
+:root[data-theme="dark"] .hero .s3{background:#4a3a12;color:#ffd98a}
+.kr{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--bd);border-radius:0;padding:12px 0;color:var(--fg);min-height:64px}
+.kr .bar{width:5px;align-self:stretch;border-radius:4px;background:var(--acc2);flex:none}.kr .bar.w{background:#e8b923}.kr .bar.n{background:var(--bd)}
+.kr .t{flex:1;min-width:0}.kr .t b{display:block;font-size:1.02rem}.kr .sb{font-size:.82rem;color:var(--mut);margin-top:2px;display:block}
+.kr .pl{font-size:.74rem;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--soft);color:var(--acc);white-space:nowrap;flex:none}
+.kr .pl.w{background:#fdecc8;color:#7a4b00}.kr .pl.n{background:transparent;color:var(--mut);border:1px solid var(--bd)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .kr .pl.w{background:#4a3a12;color:#ffd98a}}
+:root[data-theme="dark"] .kr .pl.w{background:#4a3a12;color:#ffd98a}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 4px}
 .tile{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px 6px;text-align:center}
 .tile b{display:block;font-size:1.5rem;color:var(--acc)}
@@ -532,13 +573,13 @@ async function pdfOut(el){var sh=el.dataset.bep?document.querySelector("details[
  try{try{if(document.fonts&&document.fonts.ready)await document.fonts.ready}catch(e){}
   var isG=!!sh.dataset.gp,isPlan=!isG&&!!sh.querySelector("li[data-pg]"),B,who=k?k.name:"";
   if(isG){var gr=gpBlocks(sh);B=gr.B;who=gr.who}
-  else if(isPlan){var di=sh.querySelector("input[type=date]"),dv=di&&di.value?di.value.split("-").reverse().join("."):(function(){var d=new Date();return ("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+d.getFullYear()})();who="Tarih: "+dv;
+  else if(isPlan){var di=sh.querySelector("input[type=date]"),dv=di&&di.value?di.value.split("-").reverse().join("."):(function(){var d=new Date();return ("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+d.getFullYear()})();var tmi=sh.querySelector("input[type=time]");who="Tarih: "+dv+(tmi&&tmi.value?"   Saat: "+tmi.value:"");
    var rows=[{h:1,c:["Amaç","Öğretim yöntemi","Önceki dersler","İlerleme durumu"]}];
    var seen={},ord=[];sh.querySelectorAll("li[data-pg]").forEach(function(li){var a=li.dataset.pa;if(!seen[a]){seen[a]=[];ord.push(a)}seen[a].push(li.dataset)});
    ord.forEach(function(a){rows.push({g:1,c:[a,"","",""]});seen[a].forEach(function(d){rows.push({c:[d.pg,d.pmm||"—",d.pq||"—",(d.pp||"—")+(d.pd=="1"?"\n✓ Öğretim tamamlandı":"")]})})});
    B=[{k:"h1c",t:"Ders planı"},{k:"p",lines:["Öğrenci: "+(k?k.name:"")]},{k:"tb",cw:[0.4,0.2,0.2,0.2],rows:rows}]}
   else B=blocks(flatAcc(sh));
-  var pg=drawPages(B,who);var bl=mkPdf(pg);
+  var pg=drawPages(B,(who||"")+(S.prof&&S.prof.name?"   Hazırlayan: "+S.prof.name+(S.prof.inst?" · "+S.prof.inst:""):""));var bl=mkPdf(pg);
   var nm=(t.toLowerCase().indexOf("bep")>=0?"BEP-ozeti-":t.toLowerCase().indexOf("plan")>=0?"Ders-plani-":"Degerlendirme-raporu-")+(sh.dataset.gp||(k?k.name:"cocuk")).replace(/[çÇ]/g,"c").replace(/[ğĞ]/g,"g").replace(/[ıİ]/g,"i").replace(/[öÖ]/g,"o").replace(/[şŞ]/g,"s").replace(/[üÜ]/g,"u").replace(/[^A-Za-z0-9]+/g,"-")+".pdf";
   var dl=null;try{dl=await claude.use("downloads")}catch(e){}
   if(dl){await dl.save({filename:nm,data:bl})}else{var a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=nm;document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
@@ -985,7 +1026,7 @@ document.addEventListener("click",function(e){var el=e.target.closest("[data-a=o
 /* --- Ders planı geçmişi: önceki ders performansı + yeni plan kapısı --- */
 function prevV(k,id){var H=k.hist||[];for(var i=H.length-1;i>=0;i--){var it=(H[i].items||[]).filter(function(x){return x.id==id})[0];if(it&&it.p)return {at:H[i].at,p:it.p}}return null}
 var ABR={"Fiziksel yardım":"F.Y","Model olma":"M.O","Sözel ipucu":"S.İ","Bağımsız":"B"};
-function prevCells(k,id){return (k.hist||[]).slice(-2).map(function(h){var it=(h.items||[]).filter(function(x){return x.id==id})[0];return {d:new Date(h.at).toLocaleDateString("tr-TR",{day:"2-digit",month:"2-digit"}),p:(it&&it.p)?(ABR[it.p]||it.p):"—"}})}
+function prevCells(k,id){return (k.hist||[]).slice(-2).map(function(h){var it=(h.items||[]).filter(function(x){return x.id==id})[0];return {d:(h.dt?new Date(h.dt+"T12:00"):new Date(h.at)).toLocaleDateString("tr-TR",{day:"2-digit",month:"2-digit"}),p:(it&&it.p)?(ABR[it.p]||it.p):"—"}})}
 function prevTxt(k,id){var c=prevCells(k,id);if(!c.length||c.every(function(x){return x.p=="—"}))return "";return c.map(function(x){return x.d+": "+x.p}).join("\n")}
 function prevLine(k,id){var c=prevCells(k,id);if(!c.length)return "";return "<div style=\"display:flex;gap:8px;margin-top:6px\">"+c.map(function(x){return "<div style=\"flex:1;border:1px solid var(--bd);border-radius:8px;padding:4px 6px;text-align:center\"><small class=mut>"+E(x.d)+"</small><br><b>"+E(x.p)+"</b></div>"}).join("")+"</div>"}
 function wonFold(html){var d=document.createElement("div");d.innerHTML=html;
@@ -1002,7 +1043,7 @@ function wonFold(html){var d=document.createElement("div");d.innerHTML=html;
  return d.innerHTML}
 var planV4=planV;planV=function(k){var sv=V.plan;if(k.cur)V.plan=1;var o;try{o=planV4(k)}finally{V.plan=sv}
  var nS=notesV(k),H=(k.hist||[]).slice().reverse(),hist="";
- if(H.length)hist="<details class=acc data-rk=hist><summary>Önceki ders planları <small class=mut>"+H.length+"</small></summary>"+H.map(function(h){var key="hist"+h.at;return "<details class=\"acc sub\" data-rk=\""+key+"\""+(V.ro&&V.ro[key]?" open":"")+"><summary>"+E(new Date(h.at).toLocaleDateString("tr-TR"))+" <small class=mut>"+(h.items||[]).length+" amaç</small></summary><ul class=rs>"+(h.items||[]).map(function(x){return "<li>"+E(idTxt(x.id)||x.id)+" — <b>"+E(x.p||"işaretlenmedi")+"</b></li>"}).join("")+"</ul></details>"}).join("")+"</details>";
+ if(H.length)hist="<details class=acc data-rk=hist><summary>Önceki ders planları <small class=mut>"+H.length+"</small></summary>"+H.map(function(h){var key="hist"+h.at;return "<details class=\"acc sub\" data-rk=\""+key+"\""+(V.ro&&V.ro[key]?" open":"")+"><summary>"+E((h.dt?new Date(h.dt+"T12:00"):new Date(h.at)).toLocaleDateString("tr-TR"))+(h.tm?" "+E(h.tm):"")+" <small class=mut>"+(h.items||[]).length+" amaç</small></summary><ul class=rs>"+(h.items||[]).map(function(x){return "<li>"+E(idTxt(x.id)||x.id)+" — <b>"+E(x.p||"işaretlenmedi")+"</b></li>"}).join("")+"</ul></details>"}).join("")+"</details>";
  var rest=o.indexOf(nS)==0?o.slice(nS.length):o,bi=rest.indexOf("<p><button class=p data-a=gen>");
  if(bi<0)return nS+hist+rest;
  var be=rest.indexOf("</button></p>",bi)+13,chooser=rest.slice(0,bi),btn=rest.slice(bi,be),after=rest.slice(be);
@@ -1011,6 +1052,7 @@ var planV4=planV;planV=function(k){var sv=V.plan;if(k.cur)V.plan=1;var o;try{o=p
  var body="";
  var sb="<p class=noprint style=\"display:flex;gap:8px;flex-wrap:wrap;margin:0\"><button class=p data-a=psave>Kaydet</button> <button data-a=print>Yazdır / PDF</button></p>"+(V.ps?"<p class=\""+(V.psOk?"mut":"note")+" noprint\" style=\"margin:8px 0 0\">"+E(V.ps)+"</p>":"")+((k.cur&&k.cur.sv)?"<p class=\"mut noprint\" style=\"margin:6px 0 0;font-size:.82rem\">Son kaydedilen: "+E(new Date(k.cur.sv).toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}))+"</p>":"");
  after=after.replace("<p class=noprint><button data-a=print>Yazdır / PDF</button></p>",sb);
+ after=after.replace("Tarih: <input type=date style=\"width:auto\">","Tarih: <input type=date data-pdt=d value=\""+E((k.cur&&k.cur.dt)||today())+"\" style=\"width:auto\"> Saat: <input type=time data-pdt=t value=\""+E((k.cur&&k.cur.tm)||"")+"\" style=\"width:auto\">");
  (V.pmiss||[]).forEach(function(id){after=after.replace("<li data-pid=\""+E(id)+"\"","<li class=miss data-pid=\""+E(id)+"\"")});
  if(k.cur)body=after+"<h2>Amaçları seç</h2><p class=mut style=\"margin:0 0 8px;font-size:.88rem\">Plana almak istediğin amaçları işaretle. Seçtiklerin yukarıdaki ders planına eklenir.</p>"+wonFold(chooser);
  return nS+hist+btn+gm+body};
@@ -1018,6 +1060,7 @@ document.addEventListener("click",function(e){var el=e.target.closest("[data-a=p
  var L=kidGoals(k),miss=L.filter(function(d){return !d.pmm});
  if(miss.length){V.pmiss=miss.map(function(d){return d.pid});V.psOk=false;V.ps="";popMsg("Kaydedilemedi",miss.length+" amaçta öğretim yöntemi seçilmedi. Eksik amaçlar kırmızı çizgiyle işaretlendi. Hepsine yöntem seçip tekrar Kaydet'e bas.")}
  else{V.pmiss=[];V.psOk=true;V.ps="✓ Ders planı kaydedildi.";k.cur.sv=Date.now();save()}},true);
+document.addEventListener("change",function(e){var el=e.target;if(!el.dataset||!el.dataset.pdt)return;var k=kid();if(!k||!k.cur)return;if(el.dataset.pdt=="d")k.cur.dt=el.value;else k.cur.tm=el.value;save()});
 function popMsg(t,m){var old=document.getElementById("popmsg");if(old)old.remove();var d=document.createElement("div");d.id="popmsg";d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px";
  d.innerHTML="<div style=\"background:var(--card,#fff);color:var(--ink,#111);max-width:360px;width:100%;border-radius:16px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.35)\"><h3 style=\"margin:0 0 8px\">"+E(t)+"</h3><p style=\"margin:0 0 16px;line-height:1.5\">"+E(m)+"</p><button class=p id=popok style=\"width:100%\">Tamam</button></div>";
  document.body.appendChild(d);var c=function(){d.remove()};d.addEventListener("click",function(ev){if(ev.target===d)c()});d.querySelector("#popok").addEventListener("click",c)}
@@ -1027,9 +1070,9 @@ document.addEventListener("click",function(e){var el=e.target.closest("[data-a=p
 document.addEventListener("click",function(e){var el=e.target.closest("[data-a=gen]");if(!el)return;var k=kid();if(!k)return;V.gm="";
  if(k.cur){var L=kidGoals(k),miss=L.filter(function(d){return !d.pp});
   if(miss.length){V.gm="Yeni plan için önce mevcut plandaki tüm hedeflerin ilerleme durumunu işaretle. Eksik: "+miss.length+" hedef.";e.stopImmediatePropagation();R();return}
-  k.hist=k.hist||[];k.hist.push({at:(k.cur&&k.cur.at)||Date.now(),items:L.map(function(d){return {id:d.pid,p:d.pp,m:d.pmm||""}})});
+  k.hist=k.hist||[];k.hist.push({at:(k.cur&&k.cur.at)||Date.now(),dt:(k.cur&&k.cur.dt)||"",tm:(k.cur&&k.cur.tm)||"",items:L.map(function(d){return {id:d.pid,p:d.pp,m:d.pmm||""}})});
   L.forEach(function(d){var q=(k.pm||{})[d.pid];if(q){delete q.p;delete q.auto}})}
- k.cur={at:Date.now()};save()},true);
+ k.cur={at:Date.now(),dt:today()};save()},true);
 /* ===== Amaç metni düzenleme ===== */
 S.txt=S.txt||{};S.hs=S.hs||{};var ORIG={};
 function setTxt(id,t){var q=id.split("."),b=q[0],bp=b.split("-"),a=+bp[0],i=+bp[1];
@@ -1053,7 +1096,104 @@ document.addEventListener("click",function(e){var el=e.target.closest("[data-a=e
  if(a=="etx")V.et=id;else if(a=="etc")V.et=null;
  else if(a=="etr"){resetTxt(id);V.et=null;save()}
  else if(a=="etsv"){var v=(document.getElementById("etxt")||{}).value;v=(v||"").trim();if(v){if(id in ORIG||v!=idTxt(id)){setTxt(id,v)}V.et=null;save()}}},true);
+/* ===== Yeni giriş ekranı ===== */
+function ldate(ms){var d=new Date(ms);return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function pendCnt(k){if(!k.cur)return 0;try{return kidGoals(k).filter(function(d){return !d.pp}).length}catch(e){return 0}}
+listV=function(){var grs={};S.kids.forEach(function(k){if(k.grp)grs[k.grp]=1});var gl=Object.keys(grs),t=today(),hr=new Date().getHours();
+ var info=S.kids.map(function(k){return {k:k,pend:pendCnt(k),st:k.act?dayDiff(k.act,t):-1}});
+ var nPend=info.filter(function(x){return x.pend>0}).length,nToday=info.filter(function(x){return x.st==0}).length;
+ var gr=hr<12?"Günaydın":hr<18?"İyi günler":"İyi akşamlar";
+ var h="<header class=top><svg class='lg' viewBox='0 0 96 96'><rect width='96' height='96' rx='22' style='fill:var(--acc2)'/><path d='M20 76h16V62h16V48h16V34h16' fill='none' stroke='#fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/><circle cx='76' cy='22' r='7' fill='#fff'/></svg><h1>Basamak</h1><button data-a=prof aria-label=\"Profil\">"+IC.me+"</button></header>";
+ if(S.kids.length)h+="<div class=hero><div class=hi>"+gr+", öğretmenim</div><div class=hh>"+(nPend?"Bugün "+nPend+" öğrencinin performansı bekliyor":"Bugün hangi öğrenciyle çalışıyoruz?")+"</div><div class=stp><div class=\"sp s1\"><b>"+S.kids.length+"</b><span>Öğrenci</span></div><div class=\"sp s2\"><b>"+nToday+"</b><span>Bugün çalışılan</span></div><div class=\"sp s3\"><b>"+nPend+"</b><span>Performans bekliyor</span></div></div></div>";
+ h+="<div class=pg style=\"padding-top:16px\">";
+ var td=info.filter(function(x){var c=x.k.cur;return c&&((c.dt||ldate(c.at))==t)}).sort(function(a,b){return (a.k.cur.tm||"99:99")<(b.k.cur.tm||"99:99")?-1:1});
+ if(td.length)h+="<div class=card style=\"margin:0 0 14px\"><b>Bugünün dersleri</b>"+td.map(function(x){return "<button class=kr style=\"min-height:48px;padding:8px 0\" data-a=open data-id="+x.k.id+"><span class=\"pl\" style=\"min-width:56px;text-align:center\">"+E(x.k.cur.tm||"Saat yok")+"</span><span class=t><b>"+E(x.k.name)+"</b></span></button>"}).join("")+"</div>";
+ if(S.kids.length&&(!S.lastBk||dayDiff(new Date(S.lastBk).toISOString().slice(0,10),t)>14))h+="<div class=note>"+(S.lastBk?"Son yedek 14 günden eski.":"Henüz yedek almadın.")+" Veriler bu cihazda durur; <button data-a=prof>Profil</button> bölümünden yedeği indir.</div>";
+ if(gl.length>1)h+="<p><select data-gf=1><option value=\"\">Tüm gruplar</option>"+gl.map(function(g){return "<option"+(V.gf==g?" selected":"")+">"+E(g)+"</option>"}).join("")+"</select></p>";
+ if(S.kids.length>=2)h+="<div class=mrow style=\"margin:0 0 6px\"><input type=search id=qs placeholder=\"Öğrenci ara\" value=\""+E(V.q||"")+"\" autocomplete=off><select data-so=1 aria-label=\"Sırala\">"+[["","Eklenme sırası"],["ad","Ada göre"],["bek","Güncelleme bekleyen önce"],["yas","Yaşa göre"]].map(function(x){return "<option value=\""+x[0]+"\""+((V.so||lget("oet-sort"))==x[0]?" selected":"")+">"+x[1]+"</option>"}).join("")+"</select></div>";
+ if(S.kids.length)h+="<h2 style=\"margin:14px 0 0\">Öğrencilerim</h2>";
+ sortedKids().forEach(function(k){if(V.gf&&k.grp!=V.gf)return;var ag=age(k.birth),st=k.act?dayDiff(k.act,t):-1,pc=pendCnt(k),qh=V.q&&k.name.toLocaleLowerCase("tr").indexOf(V.q.toLocaleLowerCase("tr"))<0;
+  var bar=pc?"w":(st<0||st>=30)?"n":"",pl=pc?["w","Performans eksik"]:st==0?["","Bugün"]:st>0?[st>=30?"w":"n",st==1?"Dün":st+" gün önce"]:["n","Henüz çalışılmadı"];
+  var sub=[k.dx,ag,k.grp,k.tm?"Ortak":""].filter(Boolean).map(E).join(" · ");
+  h+="<button class=kr data-s=\""+E(k.name.toLocaleLowerCase("tr"))+"\""+(qh?" hidden":"")+" data-a=open data-id="+k.id+"><span class=\"bar "+bar+"\"></span><span class=t><b>"+E(k.name)+"</b><span class=sb>"+sub+"</span></span><span class=\"pl "+pl[0]+"\">"+E(pl[1])+"</span></button>"});
+ if(!S.kids.length)h+="<div class=empty><b>Henüz öğrenci yok</b>İlk öğrenciyi ekleyerek değerlendirmeye başla.</div>";
+ h+="<p id=nores class=mut hidden>Bu adla öğrenci bulunamadı.</p>";
+ h+=V.add?"<div class=card style=\"margin-top:12px\"><label class=f style=\"margin-top:0\">Ad soyad</label><input type=text id=nn><p style=\"display:flex;gap:8px;margin:12px 0 0\"><button class=p data-a=savek>Kaydet</button> <button data-a=newk>Vazgeç</button></p></div>":"<button class=\"p add\" style=\"margin-top:14px\" data-a=newk>+ Çocuk ekle</button>";
+ h+=gplanList();
+ if(DBH)h+="<h2>Ortak çocuğa katıl</h2><div class=card><p class=mut style=\"margin:0 0 8px;font-size:.88rem\">Başka bir öğretmen çocuğu ortak yaptıysa, verdiği kodu gir.</p><div class=mrow><input type=text id=tc placeholder=\"Katılım kodu\"><button data-a=tjoin>Katıl</button></div>"+(TMM?"<small class=mut>"+E(TMM)+"</small>":"")+"</div>";
+ h+="<p class=mut style=\"margin-top:18px;font-size:.82rem\">Veriler bu cihazdaki tarayıcıda saklanır. Düzenli yedek al.</p></div>";
+ return h};
+/* ===== Açılış, kurulum, PIN kilidi ===== */
+function cyr(s,seed){var h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(var i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+function pinH(p,salt){var x=salt+":"+p+":"+salt;for(var i=0;i<50;i++)x=cyr(x,7+i);return x}
+var GLOGO="<svg width=24 height=24 viewBox=\"0 0 96 96\"><path d=\"M20 76h16V62h16V48h16V34h16\" fill=none stroke=#fff stroke-width=10 stroke-linecap=round stroke-linejoin=round /><circle cx=76 cy=20 r=8 fill=#fff /></svg>";
+V.gsf=V.gsf||{name:"",br:"Özel eğitim",inst:""};V.pin="";V.pin1="";
+function welV(){return "<div class=gt><div class=gart><div class=gl><div class=glg>"+GLOGO+"</div>Basamak</div><div class=gtag>Her çocuk kendi basamağından başlar<small>Değerlendir, hedef seç, ders planını hazırla, gelişimi adım adım izle.</small></div><svg viewBox=\"0 0 360 150\" preserveAspectRatio=\"none\"><path d=\"M0 150V120H72V92H144V64H216V36H288V8H360V150Z\" fill=\"#14a89a\" opacity=\".55\"/><path d=\"M0 150V135H72V112H144V88H216V64H288V40H360V150Z\" fill=\"#9be3d9\" opacity=\".6\"/><path d=\"M0 150V148H72V134H144V118H216V102H288V86H360V150Z\" style=\"fill:var(--bg)\"/></svg></div>"+
+ "<div class=gin style=\"padding-top:10px\"><button class=\"gb p\" data-a=g_start><span>Öğretmen girişi<small>Öğrencilerini ve planlarını yönet</small></span></button>"+
+ "<button class=gb disabled><span>Veli girişi<small>Çocuğunun gelişimini ve ödevlerini gör</small></span><span class=gsoon>Yakında</span></button>"+
+ "<label class=gb style=\"font-weight:700;font-size:.9rem;justify-content:center\">Yedek dosyasından geri yükle<input type=file id=gbk accept=\".json,application/json\" hidden></label>"+(V.gm?"<p class=gerr>"+E(V.gm)+"</p>":"")+
+ "<p class=gfine>Devam ederek bilgilendirme metnini okuduğunu kabul edersin.</p></div></div>"}
+function suV(n){var f=V.gsf,br=["Özel eğitim","Sınıf öğretmeni","Psikolog","Diğer"];
+ var h="<div class=gt><div class=gin><div class=gstp><i class=on></i><i"+(n>=2?" class=on":"")+"></i><i></i></div>";
+ if(n==1){h+="<h2 class=gh>Seni tanıyalım</h2><p class=mut style=\"font-size:.9rem\">Raporların ve PDF çıktılarının üstünde “Hazırlayan” olarak görünür. Sonradan Profil bölümünden değiştirebilirsin.</p>"+
+  "<div class=gl2>Adın soyadın</div><input type=text id=gn value=\""+E(f.name)+"\" autocomplete=name>"+
+  "<div class=gl2>Branşın</div><div class=gchips>"+br.map(function(b){return "<button class=\"gch"+(f.br==b?" on":"")+"\" data-a=g_br data-v=\""+b+"\">"+b+"</button>"}).join("")+"</div>"+
+  "<div class=gl2>Kurum (isteğe bağlı)</div><input type=text id=gi value=\""+E(f.inst)+"\" placeholder=\"Okul / RAM / Özel eğitim merkezi\">"+(V.gm?"<p class=gerr>"+E(V.gm)+"</p>":"")+
+  "<button class=\"gb p\" style=\"justify-content:center;margin-top:22px\" data-a=g_next>Devam et</button><button class=gb style=\"justify-content:center\" data-a=g_back0>Geri</button>"}
+ else{h+="<h2 class=gh>Verilerin nerede saklanır?</h2><div class=gkv><b>Öğrenci bilgileri yalnızca bu telefonda saklanır.</b> Şu an hiçbir sunucuya gönderilmez. Telefon değişirse ya da tarayıcı verisi silinirse bilgiler kaybolur, bu yüzden Profil bölümünden düzenli yedek al.<br><br>Çocukların tanı ve gelişim bilgileri hassas kişisel veridir. Bu bilgileri kullanırken velilerin bilgilendirilmesi ve onayı sorumluluğundur.</div>"+
+  "<label style=\"display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:.92rem\"><input type=checkbox id=gk style=\"width:22px;height:22px;flex:none;margin-top:1px\"> Bilgilendirmeyi okudum, anladım.</label>"+(V.gm?"<p class=gerr>"+E(V.gm)+"</p>":"")+
+  "<button class=\"gb p\" style=\"justify-content:center;margin-top:22px\" data-a=g_next>Devam et</button><button class=gb style=\"justify-content:center\" data-a=g_back1>Geri</button>"}
+ return h+"</div></div>"}
+function pinV(mode){var dots="",i;for(i=0;i<4;i++)dots+="<i"+(i<V.pin.length?" on":"")+"></i>";
+ var fn=((S.prof&&S.prof.name)||"").split(" ")[0],t,sub;
+ if(mode=="lock"){t="Merhaba"+(fn?" "+E(fn):"");sub="Öğrenci bilgilerini korumak için PIN gir"}
+ else{t=V.pin1?"PIN’i tekrar gir":"PIN belirle";sub=V.pin1?"Aynı 4 haneyi bir kez daha gir":"4 haneli bir PIN seç"}
+ var lo=V.until&&Date.now()<V.until;
+ var h="<div class=\"gt dk\"><div class=gpin><div class=glg style=\"width:60px;height:60px;border-radius:18px\">"+GLOGO.replace(/24/g,"34")+"</div><h2 style=\"font-size:1.5rem;font-weight:800;margin:14px 0 4px;color:#fff\">"+t+"</h2><p style=\"opacity:.78;font-size:.9rem\">"+sub+"</p>";
+ if(V.forg){h+="<div style=\"margin:26px 22px 0;background:rgba(255,255,255,.12);border-radius:16px;padding:16px;font-size:.88rem;line-height:1.5;max-width:340px\"><b>PIN’i kurtarmanın yolu yok.</b> Veriler bu telefonda tutulduğu için PIN’i sıfırlamak için tüm öğrenci verilerinin silinmesi gerekir. Yedek dosyan varsa sıfırladıktan sonra ilk ekrandan geri yükleyebilirsin."+(V.forg==2?"<br><br><b>Emin misin? Bu işlem geri alınamaz.</b>":"")+"<div style=\"display:flex;gap:8px;margin-top:12px\"><button class=gb style=\"margin:0;justify-content:center;flex:1;background:#fff;color:#0d5f58\" data-a=g_no>Vazgeç</button><button class=gb style=\"margin:0;justify-content:center;flex:1;background:#c9443e;color:#fff;border-color:#c9443e\" data-a=g_rst>"+(V.forg==2?"Evet, sil":"Verileri sil")+"</button></div></div>"}
+ else{h+="<div class=gdots>"+dots+"</div><div style=\"min-height:22px;color:#ffd0cc;font-weight:600;font-size:.85rem\">"+(lo?"Çok fazla deneme. "+Math.ceil((V.until-Date.now())/1000)+" sn bekle.":E(V.perr||""))+"</div><div class=gpad>"+[1,2,3,4,5,6,7,8,9].map(function(d){return "<button data-a=g_key data-k="+d+">"+d+"</button>"}).join("")+"<button class=n data-a=g_pcancel>"+(mode=="lock"?"":"Vazgeç")+"</button><button data-a=g_key data-k=0>0</button><button class=n data-a=g_key data-k=del>⌫</button></div>";
+  if(mode=="lock")h+="<button class=glnk data-a=g_forg>PIN’ni unuttun mu?</button>";
+  else if(mode=="set"&&V.gs==3)h+="<button class=glnk data-a=g_skip>PIN’i sonra belirle</button>"}
+ return h+"</div></div>"}
+function gateV(){if(navigator.webdriver&&!window.__gate)return "";var P=S.prof;
+ if(!P||!P.done)return V.gs==1?suV(1):V.gs==2?suV(2):V.gs==3?pinV("set"):welV();
+ if(P.pin&&!V.unl)return pinV("lock");return ""}
+function gFinish(withPin){var f=V.gsf;S.prof=Object.assign({auto:60},S.prof||{},{name:f.name,branch:f.br,inst:f.inst,done:1,at:Date.now()});if(withPin){S.prof.pin=withPin}V.unl=true;V.gs=0;V.pin="";V.pin1="";V.perr="";V.gm="";save();R()}
+function gSetPin(){var salt=Math.random().toString(36).slice(2,10);return {s:salt,h:pinH(V.pin1,salt)}}
+document.addEventListener("click",function(e){var el=e.target.closest("[data-a^=g_]");if(!el)return;var a=el.dataset.a;V.gm="";
+ var rd=function(){var n=document.getElementById("gn"),i=document.getElementById("gi");if(n)V.gsf.name=n.value.trim();if(i)V.gsf.inst=i.value.trim()};
+ if(a=="g_start"){V.gs=1}
+ else if(a=="g_br"){rd();V.gsf.br=el.dataset.v}
+ else if(a=="g_back0"){rd();V.gs=0}
+ else if(a=="g_back1"){V.gs=1}
+ else if(a=="g_next"){if(V.gs==1){rd();if(!V.gsf.name){V.gm="Adını yaz.";return}V.gs=2}
+  else if(V.gs==2){var k2=document.getElementById("gk");if(!k2||!k2.checked){V.gm="Devam etmek için işaretle.";return}V.gs=3;V.pin="";V.pin1="";V.perr=""}}
+ else if(a=="g_skip"){gFinish(null);e.stopPropagation();return}
+ else if(a=="g_pcancel"){if(V.s=="pinset"){V.s="prof";V.pin="";V.pin1="";V.perr=""}else if(V.gs==3){V.gs=2}}
+ else if(a=="g_forg"){V.forg=1}
+ else if(a=="g_no"){V.forg=0}
+ else if(a=="g_rst"){if(V.forg==1){V.forg=2}else{try{localStorage.removeItem(K)}catch(x){}location.reload();return}}
+ else if(a=="g_key"){var d=el.dataset.k,lock=S.prof&&S.prof.done&&S.prof.pin&&!V.unl;if(V.until&&Date.now()<V.until)return;V.perr="";
+  if(d=="del")V.pin=V.pin.slice(0,-1);else if(V.pin.length<4)V.pin+=d;
+  if(V.pin.length==4){
+   if(lock){if(pinH(V.pin,S.prof.pin.s)==S.prof.pin.h){V.unl=true;V.tries=0;V.pin=""}else{V.tries=(V.tries||0)+1;V.pin="";V.perr="Yanlış PIN";if(V.tries>=5){V.until=Date.now()+30000;V.tries=0;setTimeout(R,30500)}}}
+   else if(!V.pin1){V.pin1=V.pin;V.pin=""}
+   else if(V.pin==V.pin1){var pn=gSetPin();if(V.s=="pinset"){S.prof.pin=pn;V.s="prof";V.unl=true;V.pin="";V.pin1="";V.pm="PIN kaydedildi.";save()}else{gFinish(pn);e.stopPropagation();return}}
+   else{V.pin="";V.pin1="";V.perr="PIN’ler eşleşmedi, baştan dene"}}}
+ else return;
+ R();e.stopPropagation()},true);
+document.addEventListener("change",function(e){var t=e.target;if(t.id=="gbk"&&t.files&&t.files[0]){var r=new FileReader();r.onload=function(){try{var j=JSON.parse(r.result);if(!j||!j.S||!j.S.kids)throw 0;S=Object.assign({kids:[],extra:{},hid:{},hidA:{},merge:{},names:{}},j.S);S.txt=S.txt||{};S.hs=S.hs||{};migAll();V.unl=!(S.prof&&S.prof.pin);save();R()}catch(x){V.gm="Bu dosya bir Basamak yedeği değil.";R()}};r.readAsText(t.files[0]);return}
+ if(t.dataset&&t.dataset.pf&&S.prof){var f=t.dataset.pf;if(f=="auto")S.prof.auto=+t.value;else S.prof[f]=t.value.trim();save()}});
+var gHid=0;document.addEventListener("visibilitychange",function(){if(document.hidden){gHid=Date.now()}else if(S.prof&&S.prof.pin&&V.unl){var a=S.prof.auto==null?60:S.prof.auto;if(a>=0&&Date.now()-gHid>=a*1000){V.unl=false;V.pin="";V.perr="";R()}}});
+var profVg=profV;profV=function(){var o=profVg(),i=o.indexOf("<div class=pg>");if(i<0||!S.prof)return o;i+=14;var P=S.prof,au=P.auto==null?60:P.auto;
+ var h="<h2>Hesap ve güvenlik</h2><div class=card><label class=f style=\"margin-top:0\">Ad soyad</label><input type=text data-pf=name value=\""+E(P.name||"")+"\"><label class=f>Branş</label><select data-pf=branch>"+["Özel eğitim","Sınıf öğretmeni","Psikolog","Diğer"].map(function(b){return "<option"+(P.branch==b?" selected":"")+">"+b+"</option>"}).join("")+"</select><label class=f>Kurum</label><input type=text data-pf=inst value=\""+E(P.inst||"")+"\" placeholder=\"Okul / RAM / Özel eğitim merkezi\">"+
+ "<label class=f>Uygulama kilidi (PIN)</label>"+(V.pm?"<p class=note style=\"margin:0 0 8px\">"+E(V.pm)+"</p>":"")+(P.pin?"<p style=\"display:flex;gap:8px;flex-wrap:wrap;margin:0\"><button data-a=g_pinset>PIN’i değiştir</button>"+(V.pof?"<button class=p data-a=g_pofy>Evet, kaldır</button><button data-a=g_pofn>Vazgeç</button>":"<button data-a=g_pof>PIN’i kaldır</button>")+"</p><label class=f>Otomatik kilit</label><select data-pf=auto>"+[[0,"Uygulamadan çıkınca hemen"],[60,"1 dakika sonra"],[300,"5 dakika sonra"],[-1,"Kapalı (sadece açılışta)"]].map(function(x){return "<option value="+x[0]+(au==x[0]?" selected":"")+">"+x[1]+"</option>"}).join("")+"</select><p class=mut style=\"font-size:.8rem;margin:8px 0 0\">PIN ekranı kilitler, verileri şifrelemez. PIN’i unutursan tek yol verileri silip yedekten geri yüklemektir.</p>":"<p style=\"margin:0\"><button class=p data-a=g_pinset>PIN belirle</button></p>")+"</div>";
+ return o.slice(0,i)+h+o.slice(i)};
+document.addEventListener("click",function(e){var el=e.target.closest("[data-a=g_pinset],[data-a=g_pof],[data-a=g_pofy],[data-a=g_pofn]");if(!el)return;var a=el.dataset.a;V.pm="";
+ if(a=="g_pinset"){V.s="pinset";V.pin="";V.pin1="";V.perr=""}else if(a=="g_pof")V.pof=1;else if(a=="g_pofn")V.pof=0;else if(a=="g_pofy"){delete S.prof.pin;V.pof=0;V.pm="PIN kaldırıldı.";save()}
+ R();e.stopPropagation()},true);
 var R0=R;R=function(){var ap=document.getElementById("app");
+ if(ROLE!="parent"&&ROLE!="boot"){var gt=gateV();if(gt){ap.className="";ap.innerHTML=gt;return}if(V.s=="pinset"){ap.className="";ap.innerHTML=pinV("set");return}}
  if(ROLE=="boot"){ap.className="";ap.innerHTML="<div class=empty style=\"padding-top:30vh\"><b>Yükleniyor…</b></div>";return}
  if(ROLE=="parent"){ap.className="";ap.innerHTML=parentV();return}
  if(V.s=="prof"){ap.className="";ap.innerHTML=profV();return}
