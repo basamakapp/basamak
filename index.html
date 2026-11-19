@@ -1127,17 +1127,19 @@ listV=function(){var grs={};S.kids.forEach(function(k){if(k.grp)grs[k.grp]=1});v
 function cyr(s,seed){var h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(var i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
 function pinH(p,salt){var x=salt+":"+p+":"+salt;for(var i=0;i<50;i++)x=cyr(x,7+i);return x}
 var GLOGO="<svg width=24 height=24 viewBox=\"0 0 96 96\"><path d=\"M20 76h16V62h16V48h16V34h16\" fill=none stroke=#fff stroke-width=10 stroke-linecap=round stroke-linejoin=round /><circle cx=76 cy=20 r=8 fill=#fff /></svg>";
-V.gsf=V.gsf||{name:"",br:"Özel eğitim",inst:""};V.pin="";V.pin1="";
+var BRL=["Özel Eğitim Öğretmeni","Sınıf Öğretmeni","Okul Öncesi Öğretmeni","Dil Terapisti","Fizyoterapist","Ergoterapist","Psikolog"];
+function brOpts(cur){var l=BRL.slice();if(cur&&l.indexOf(cur)<0)l.unshift(cur);return l.map(function(b){return "<option"+(cur==b?" selected":"")+">"+E(b)+"</option>"}).join("")}
+V.gsf=V.gsf||{name:"",br:"Özel Eğitim Öğretmeni",inst:""};V.pin="";V.pin1="";
 function welV(){return "<div class=gt><div class=gart><div class=gl><div class=glg>"+GLOGO+"</div>Basamak</div><div class=gtag>Her çocuk kendi basamağından başlar<small>Değerlendir, hedef seç, ders planını hazırla, gelişimi adım adım izle.</small></div><svg viewBox=\"0 0 360 150\" preserveAspectRatio=\"none\"><path d=\"M0 150V120H72V92H144V64H216V36H288V8H360V150Z\" fill=\"#14a89a\" opacity=\".55\"/><path d=\"M0 150V135H72V112H144V88H216V64H288V40H360V150Z\" fill=\"#9be3d9\" opacity=\".6\"/><path d=\"M0 150V148H72V134H144V118H216V102H288V86H360V150Z\" style=\"fill:var(--bg)\"/></svg></div>"+
  "<div class=gin style=\"padding-top:10px\"><button class=\"gb p\" data-a=g_start><span>Öğretmen girişi<small>Öğrencilerini ve planlarını yönet</small></span></button>"+
  "<button class=gb disabled><span>Veli girişi<small>Çocuğunun gelişimini ve ödevlerini gör</small></span><span class=gsoon>Yakında</span></button>"+
  "<label class=gb style=\"font-weight:700;font-size:.9rem;justify-content:center\">Yedek dosyasından geri yükle<input type=file id=gbk accept=\".json,application/json\" hidden></label>"+(V.gm?"<p class=gerr>"+E(V.gm)+"</p>":"")+
  "<p class=gfine>Devam ederek bilgilendirme metnini okuduğunu kabul edersin.</p></div></div>"}
-function suV(n){var f=V.gsf,br=["Özel eğitim","Sınıf öğretmeni","Psikolog","Diğer"];
+function suV(n){var f=V.gsf;
  var h="<div class=gt><div class=gin><div class=gstp><i class=on></i><i"+(n>=2?" class=on":"")+"></i><i></i></div>";
  if(n==1){h+="<h2 class=gh>Seni tanıyalım</h2><p class=mut style=\"font-size:.9rem\">Raporların ve PDF çıktılarının üstünde “Hazırlayan” olarak görünür. Sonradan Profil bölümünden değiştirebilirsin.</p>"+
   "<div class=gl2>Adın soyadın</div><input type=text id=gn value=\""+E(f.name)+"\" autocomplete=name>"+
-  "<div class=gl2>Branşın</div><div class=gchips>"+br.map(function(b){return "<button class=\"gch"+(f.br==b?" on":"")+"\" data-a=g_br data-v=\""+b+"\">"+b+"</button>"}).join("")+"</div>"+
+  "<div class=gl2>Branşın</div><select id=gb>"+brOpts(f.br)+"</select>"+
   "<div class=gl2>Kurum (isteğe bağlı)</div><input type=text id=gi value=\""+E(f.inst)+"\" placeholder=\"Okul / RAM / Özel eğitim merkezi\">"+(V.gm?"<p class=gerr>"+E(V.gm)+"</p>":"")+
   "<button class=\"gb p\" style=\"justify-content:center;margin-top:22px\" data-a=g_next>Devam et</button><button class=gb style=\"justify-content:center\" data-a=g_back0>Geri</button>"}
  else{h+="<h2 class=gh>Verilerin nerede saklanır?</h2><div class=gkv><b>Öğrenci bilgileri yalnızca bu telefonda saklanır.</b> Şu an hiçbir sunucuya gönderilmez. Telefon değişirse ya da tarayıcı verisi silinirse bilgiler kaybolur, bu yüzden Profil bölümünden düzenli yedek al.<br><br>Çocukların tanı ve gelişim bilgileri hassas kişisel veridir. Bu bilgileri kullanırken velilerin bilgilendirilmesi ve onayı sorumluluğundur.</div>"+
@@ -1161,7 +1163,7 @@ function gateV(){if(navigator.webdriver&&!window.__gate)return "";var P=S.prof;
 function gFinish(withPin){var f=V.gsf;S.prof=Object.assign({auto:60},S.prof||{},{name:f.name,branch:f.br,inst:f.inst,done:1,at:Date.now()});if(withPin){S.prof.pin=withPin}V.unl=true;V.gs=0;V.pin="";V.pin1="";V.perr="";V.gm="";save();R()}
 function gSetPin(){var salt=Math.random().toString(36).slice(2,10);return {s:salt,h:pinH(V.pin1,salt)}}
 document.addEventListener("click",function(e){var el=e.target.closest("[data-a^=g_]");if(!el)return;var a=el.dataset.a;V.gm="";
- var rd=function(){var n=document.getElementById("gn"),i=document.getElementById("gi");if(n)V.gsf.name=n.value.trim();if(i)V.gsf.inst=i.value.trim()};
+ var rd=function(){var n=document.getElementById("gn"),i=document.getElementById("gi"),bs=document.getElementById("gb");if(bs)V.gsf.br=bs.value;if(n)V.gsf.name=n.value.trim();if(i)V.gsf.inst=i.value.trim()};
  if(a=="g_start"){V.gs=1}
  else if(a=="g_br"){rd();V.gsf.br=el.dataset.v}
  else if(a=="g_back0"){rd();V.gs=0}
@@ -1186,7 +1188,7 @@ document.addEventListener("change",function(e){var t=e.target;if(t.id=="gbk"&&t.
  if(t.dataset&&t.dataset.pf&&S.prof){var f=t.dataset.pf;if(f=="auto")S.prof.auto=+t.value;else S.prof[f]=t.value.trim();save()}});
 var gHid=0;document.addEventListener("visibilitychange",function(){if(document.hidden){gHid=Date.now()}else if(S.prof&&S.prof.pin&&V.unl){var a=S.prof.auto==null?60:S.prof.auto;if(a>=0&&Date.now()-gHid>=a*1000){V.unl=false;V.pin="";V.perr="";R()}}});
 var profVg=profV;profV=function(){var o=profVg(),i=o.indexOf("<div class=pg>");if(i<0||!S.prof)return o;i+=14;var P=S.prof,au=P.auto==null?60:P.auto;
- var h="<h2>Hesap ve güvenlik</h2><div class=card><label class=f style=\"margin-top:0\">Ad soyad</label><input type=text data-pf=name value=\""+E(P.name||"")+"\"><label class=f>Branş</label><select data-pf=branch>"+["Özel eğitim","Sınıf öğretmeni","Psikolog","Diğer"].map(function(b){return "<option"+(P.branch==b?" selected":"")+">"+b+"</option>"}).join("")+"</select><label class=f>Kurum</label><input type=text data-pf=inst value=\""+E(P.inst||"")+"\" placeholder=\"Okul / RAM / Özel eğitim merkezi\">"+
+ var h="<h2>Hesap ve güvenlik</h2><div class=card><label class=f style=\"margin-top:0\">Ad soyad</label><input type=text data-pf=name value=\""+E(P.name||"")+"\"><label class=f>Branş</label><select data-pf=branch>"+brOpts(P.branch)+"</select><label class=f>Kurum</label><input type=text data-pf=inst value=\""+E(P.inst||"")+"\" placeholder=\"Okul / RAM / Özel eğitim merkezi\">"+
  "<label class=f>Uygulama kilidi (PIN)</label>"+(V.pm?"<p class=note style=\"margin:0 0 8px\">"+E(V.pm)+"</p>":"")+(P.pin?"<p style=\"display:flex;gap:8px;flex-wrap:wrap;margin:0\"><button data-a=g_pinset>PIN’i değiştir</button>"+(V.pof?"<button class=p data-a=g_pofy>Evet, kaldır</button><button data-a=g_pofn>Vazgeç</button>":"<button data-a=g_pof>PIN’i kaldır</button>")+"</p><label class=f>Otomatik kilit</label><select data-pf=auto>"+[[0,"Uygulamadan çıkınca hemen"],[60,"1 dakika sonra"],[300,"5 dakika sonra"],[-1,"Kapalı (sadece açılışta)"]].map(function(x){return "<option value="+x[0]+(au==x[0]?" selected":"")+">"+x[1]+"</option>"}).join("")+"</select><p class=mut style=\"font-size:.8rem;margin:8px 0 0\">PIN ekranı kilitler, verileri şifrelemez. PIN’i unutursan tek yol verileri silip yedekten geri yüklemektir.</p>":"<p style=\"margin:0\"><button class=p data-a=g_pinset>PIN belirle</button></p>")+"</div>";
  return o.slice(0,i)+h+o.slice(i)};
 document.addEventListener("click",function(e){var el=e.target.closest("[data-a=g_pinset],[data-a=g_pof],[data-a=g_pofy],[data-a=g_pofn]");if(!el)return;var a=el.dataset.a;V.pm="";
