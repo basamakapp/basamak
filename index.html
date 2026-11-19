@@ -356,7 +356,7 @@ function planV(k){
  if(V.plan){
   var L="";
   Object.keys(k.pick).forEach(function(id){var p=id.split("-");if(k.bep[id]&&!mast(k,id))L+="<li style=\"margin-bottom:12px\"><b>Hedef:</b> "+E(items(+p[0])[+p[1]])+"<br><span class=mut>"+E(AREAS[+p[0]][0])+"</span>"+pmV(k,id)+"<label class=f>Materyal</label><input type=text></li>"});
-  h+="<div class=sheet><h2>Ders planı</h2><p>Öğrenci: <b>"+E(k.name)+"</b><br>Tarih: <input type=date style=\"width:auto\"></p>"+(L?"<ol>"+L+"</ol>":"<p class=mut>Önce hedef seç.</p>")+"<p class=noprint><button data-a=print>Yazdır / PDF</button></p></div>"}
+  h+="<div class=sheet><h2>Ders planı</h2><p>Öğrenci: <b>"+E(k.name)+"</b><br>Tarih: <input type=date style=\"width:auto\"></p>"+(L?(k.hist&&k.hist.length?"<p class=mut style=\"font-size:.8rem;margin:0 0 8px\">F.Y: Fiziksel yardım · M.O: Model olma · S.İ: Sözel ipucu · B: Bağımsız</p>":"")+"<ol>"+L+"</ol>":"<p class=mut>Önce hedef seç.</p>")+"<p class=noprint><button data-a=print>Yazdır / PDF</button></p></div>"}
  return h}
 function repV(k){
  var h="<div class=sheet><h2>Değerlendirme raporu</h2><p><b>"+E(k.name)+"</b><br>Doğum: "+D(k.birth)+" · Tanı: "+E(k.dx||"—")+"<br>Kuruma başlama: "+D(k.start)+"<br>Değerlendirme: "+D(k.e1)+" – "+D(k.e2)+"</p>",t="",l="";
@@ -409,27 +409,28 @@ function setRes(k,id,v){
  if(d.length==1)sub.forEach(function(x,ki){setR(k,id+"."+ki,"+");x[1].forEach(function(_,oi){setR(k,id+"."+ki+"."+oi,"+")})});
  else if(d.length==2){for(var m=0;m<=+d[1];m++){setR(k,d[0]+"."+m,"+");sub[m][1].forEach(function(_,oi){setR(k,d[0]+"."+m+"."+oi,"+")})}}
  else{for(var oi=0;oi<+d[2];oi++)setR(k,d[0]+"."+d[1]+"."+oi,"+")}}
-function subCount(k,id){var s=SUB[id]||[],p=0,n=0;s.forEach(function(x,ki){var a=id+"."+ki;n++;if(k.res[a]=="+")p++;x[1].forEach(function(_,oi){n++;if(k.res[a+"."+oi]=="+")p++})});return[p,n]}
+function subCount(k,id){var s=SUB[id]||[],p=0,n=0;s.forEach(function(x,ki){var a=id+"."+ki;if(hsd(a))return;n++;if(k.res[a]=="+")p++;x[1].forEach(function(_,oi){n++;if(k.res[a+"."+oi]=="+")p++})});return[p,n]}
 function subV(k,id){var s=SUB[id];if(!s)return "";var c=subCount(k,id),op=V.sb.has(id),h="<div class=ctl><button class=sbt data-a=sbt data-id="+id+">"+(op?"▾":"▸")+" Alt basamaklar ("+c[0]+"/"+c[1]+")</button></div>";
  if(!op)return h;h+="<div class=subs>";
- s.forEach(function(x,ki){var a=id+"."+ki;h+="<div class=\"row sub1\"><div><small class=tag>K.D.A.</small> "+E(x[0])+"</div><div class=ctl>"+ctl(k,a)+"</div></div>";
-  x[1].forEach(function(o,oi){var b=a+"."+oi;h+="<div class=\"row sub2\"><div><small class=tag>Ö.A.</small> "+E(o)+"</div><div class=ctl>"+ctl(k,b)+"</div></div>"})});
+ s.forEach(function(x,ki){var a=id+"."+ki;if(hsd(a))return;h+="<div class=\"row sub1\"><div><small class=tag>K.D.A.</small> "+E(x[0])+"</div><div class=ctl>"+ctl(k,a)+"</div></div>";
+  x[1].forEach(function(o,oi){var b=a+"."+oi;if(hsd(b))return;h+="<div class=\"row sub2\"><div><small class=tag>Ö.A.</small> "+E(o)+"</div><div class=ctl>"+ctl(k,b)+"</div></div>"})});
  return h+"</div>"}
 function gtxt(id){var d=id.split("."),p=d[0].split("-"),ai=+p[0],t=items(ai)[+p[1]],o={ai:ai,par:t,t:t,lv:0},s=SUB[d[0]];if(d.length>1&&s){o.lv=d.length-1;o.t=d.length==2?s[+d[1]][0]:s[+d[1]][1][+d[2]]}return o}
-function blk(k,prev){return k.res[prev]=="-"&&!mast(k,prev)}
+function hsd(a){var q=a.split(".");return !!(S.hs&&(S.hs[a]||(q.length>1&&S.hs[q[0]+"."+q[1]])))}
+function blk(k,prev){return !hsd(prev)&&k.res[prev]=="-"&&!mast(k,prev)}
 function prow(k,id,t,lk,lvl,OK){var h="<div class=\"row"+(lvl?" sub"+lvl:"")+"\"><div>"+(lvl?"<small class=tag>"+(lvl==1?"K.D.A.":"Ö.A.")+"</small> ":"")+E(t)+"</div><div class=ctl>";
  if(mast(k,id))h+="<span class=done>✔ Kazanıldı</span>"+(k.prog[id]?"<button data-a=win data-id="+id+">Geri al</button>":"");
  else if(lk)h+="<span class=lock>🔒 "+E(lk)+"</span>";
  else{OK[id]=1;h+="<label><input type=checkbox data-a=pick data-id="+id+(k.pick[id]?" checked":"")+"> Plana ekle</label><button data-a=win data-id="+id+">Kazandı</button>"}
  return h+"</div></div>"}
-function subList(k,id,sg){var o=[],sub=SUB[id]||[];sub.forEach(function(s,ki){var a=id+"."+ki;if(k.res[a]==sg)o.push({lv:1,t:s[0],st:k.rap[a]});s[1].forEach(function(x,oi){var b=a+"."+oi;if(k.res[b]==sg)o.push({lv:2,t:x,st:k.rap[b]})})});return o}
+function subList(k,id,sg){var o=[],sub=SUB[id]||[];sub.forEach(function(s,ki){var a=id+"."+ki;if(hsd(a))return;if(k.res[a]==sg)o.push({lv:1,t:s[0],st:k.rap[a]});s[1].forEach(function(x,oi){var b=a+"."+oi;if(k.res[b]==sg)o.push({lv:2,t:x,st:k.rap[b]})})});return o}
 function assV(k){
  var ed=V.ed,h="<p><button data-a=ed"+(ed?" class=p":"")+">"+(ed?"Düzenlemeyi bitir":"Formu düzenle (gizle / birleştir)")+"</button></p><p class=mut style=\"font-size:.9rem\">"+(ed?"Değişiklikler tüm çocuklar için geçerlidir. Gizlenenler en altta, geri getirilebilir.":"+ / − ile işaretle. − işaretlenen madde otomatik BEP’e alınır. Üst amaca + koyarsan altındaki tüm K.D.A. ve Ö.A. +; bir K.D.A.’ya + koyarsan ondan önceki K.D.A.’lar ve hepsinin Ö.A.’ları +; bir Ö.A.’ya + koyarsan ondan önceki Ö.A.’lar da + olur.")+"</p>";
  VA().forEach(function(A){var ai=A.ai,p=A.its.filter(function(x){return k.res[x.id]=="+"}).length;
   h+="<details data-ai="+ai+(V.open.has(ai)?" open":"")+"><summary><span class=st>"+E(A.name)+"<small>"+p+"/"+A.its.length+"</small><span class=bar><i style=\"width:"+(A.its.length?Math.round(100*p/A.its.length):0)+"%\"></i></span></span></summary>"+(ed?editHead(ai):"");
   A.its.forEach(function(x,i){var id=x.id,r=k.res[id];
-   h+="<div class=row><div>"+(i+1)+". "+E(x.t)+"</div><div class=ctl>"+(ed?"<button data-a=hid data-id="+id+">Gizle</button>":
-   "<button class=\"b"+(r=="+"?" ok":"")+"\" data-a=res data-id="+id+" data-v=+>+</button><button class=\"b"+(r=="-"?" bad":"")+"\" data-a=res data-id="+id+" data-v=->−</button><label><input type=checkbox data-a=flag data-g=bep data-id="+id+(k.bep[id]?" checked":"")+"> BEP’e al</label><label><input type=checkbox data-a=flag data-g=rap data-id="+id+(k.rap[id]?" checked":"")+"> Rapora al</label>")+"</div>"+(ed?"":subV(k,id))+"</div>"});
+   h+="<div class=row><div>"+(i+1)+". "+(ed&&V.et==id?etBox(id):E(x.t))+"</div><div class=ctl>"+(ed?(V.et==id?"":"<button data-a=etx data-id="+id+">Düzenle</button> ")+"<button data-a=hid data-id="+id+">Gizle</button>":
+   "<button class=\"b"+(r=="+"?" ok":"")+"\" data-a=res data-id="+id+" data-v=+>+</button><button class=\"b"+(r=="-"?" bad":"")+"\" data-a=res data-id="+id+" data-v=->−</button><label><input type=checkbox data-a=flag data-g=bep data-id="+id+(k.bep[id]?" checked":"")+"> BEP’e al</label><label><input type=checkbox data-a=flag data-g=rap data-id="+id+(k.rap[id]?" checked":"")+"> Rapora al</label>")+"</div>"+(ed?edSub(id):subV(k,id))+"</div>"});
   if(!ed){h+="<p><button data-a=addm data-ai="+ai+">+ Toplu madde ekle</button></p>";if(V.am===ai)h+="<textarea id=bulk placeholder=\"Her satıra bir madde yaz veya yapıştır\"></textarea><p><button class=p data-a=savem data-ai="+ai+">Ekle</button></p>"}
   h+="</details>"});
  return h+(ed?hidV():"")}
@@ -440,10 +441,10 @@ function planV(k){
    var id=x.id,pv=i>0?A.its[i-1]:null,pl=pv&&blk(k,pv.id),sub=SUB[id]||[],sr="";
    sub.forEach(function(sx,ki){var a=id+"."+ki,kl=pl||(ki>0&&blk(k,id+"."+(ki-1)));
     var km=pl?"Üst amaç henüz açılmadı":"Önce şu kazanılmalı: “"+(ki>0?sub[ki-1][0]:"")+"”";
-    if(k.bep[a])sr+=prow(k,a,sx[0],kl?km:"",1,OK);
+    if(k.bep[a]&&!hsd(a))sr+=prow(k,a,sx[0],kl?km:"",1,OK);
     sx[1].forEach(function(o,oi){var b=a+"."+oi,ol=kl||(oi>0&&blk(k,a+"."+(oi-1)));
      var om=kl?(pl?"Üst amaç henüz açılmadı":"Üst basamak kilitli"):"Önce şu kazanılmalı: “"+(oi>0?sx[1][oi-1]:"")+"”";
-     if(k.bep[b])sr+=prow(k,b,o,ol?om:"",2,OK)})});
+     if(k.bep[b]&&!hsd(b))sr+=prow(k,b,o,ol?om:"",2,OK)})});
    if(!k.bep[id]&&!sr)return;
    any=1;
    rows+=k.bep[id]?prow(k,id,x.t,pl?"Önce şu kazanılmalı: “"+pv.t+"”":"",0,OK):"<div class=row><div class=mut>"+E(x.t)+"</div></div>";
@@ -454,8 +455,8 @@ function planV(k){
  h+="<p><button class=p data-a=gen>Ders planı oluştur ("+np+" hedef)</button></p>";
  if(V.plan){var L="";
   Object.keys(k.pick).sort(function(a,b){return root(gtxt(a).ai)-root(gtxt(b).ai)}).forEach(function(id){var g=gtxt(id),dn=((k.pm||{})[id]||{}).p=="Bağımsız"&&mast(k,id);
-   if((OK[id]||dn)&&k.bep[id]&&(!mast(k,id)||dn))L+="<li data-pid=\""+E(id)+"\" data-pq=\""+E((prevV(k,id)||{}).p||"")+"\" data-pg=\""+E(g.t)+"\" data-pa=\""+E(nm(root(g.ai)))+"\" data-pu=\""+E(g.lv?g.par:"")+"\" data-pmm=\""+E(((k.pm||{})[id]||{}).m||"")+"\" data-pp=\""+E(((k.pm||{})[id]||{}).p||"")+"\" data-pd=\""+(dn?1:0)+"\" style=\"margin-bottom:12px\"><b>Amaç:</b> "+E(g.t)+"<br><span class=mut>"+E(nm(root(g.ai)))+"</span>"+(dn?"<br><b class=done>✓ Öğretim tamamlandı</b>":"")+prevLine(k,id)+pmV(k,id)+matV(id)+"</li>"});
-  h+="<div class=sheet><h2>Ders planı</h2><p>Öğrenci: <b>"+E(k.name)+"</b><br>Tarih: <input type=date style=\"width:auto\"></p>"+(L?"<ol>"+L+"</ol>":"<p class=mut>Önce hedef seç.</p>")+"<p class=noprint><button data-a=print>Yazdır / PDF</button></p></div>"}
+   if((OK[id]||dn)&&k.bep[id]&&(!mast(k,id)||dn))L+="<li data-pid=\""+E(id)+"\" data-pq=\""+E(prevTxt(k,id))+"\" data-pg=\""+E(g.t)+"\" data-pa=\""+E(nm(root(g.ai)))+"\" data-pu=\""+E(g.lv?g.par:"")+"\" data-pmm=\""+E(((k.pm||{})[id]||{}).m||"")+"\" data-pp=\""+E(((k.pm||{})[id]||{}).p||"")+"\" data-pd=\""+(dn?1:0)+"\" style=\"margin-bottom:12px\"><b>Amaç:</b> "+E(g.t)+"<br><span class=mut>"+E(nm(root(g.ai)))+"</span>"+(dn?"<br><b class=done>✓ Öğretim tamamlandı</b>":"")+prevLine(k,id)+pmV(k,id)+matV(id)+"</li>"});
+  h+="<div class=sheet><h2>Ders planı</h2><p>Öğrenci: <b>"+E(k.name)+"</b><br>Tarih: <input type=date style=\"width:auto\"></p>"+(L?(k.hist&&k.hist.length?"<p class=mut style=\"font-size:.8rem;margin:0 0 8px\">F.Y: Fiziksel yardım · M.O: Model olma · S.İ: Sözel ipucu · B: Bağımsız</p>":"")+"<ol>"+L+"</ol>":"<p class=mut>Önce hedef seç.</p>")+"<p class=noprint><button data-a=print>Yazdır / PDF</button></p></div>"}
  return h}
 /* ===== PDF çıktısı ===== */
 function inl(el){var out=[],st={c:""};
@@ -532,7 +533,7 @@ async function pdfOut(el){var sh=el.dataset.bep?document.querySelector("details[
   var isG=!!sh.dataset.gp,isPlan=!isG&&!!sh.querySelector("li[data-pg]"),B,who=k?k.name:"";
   if(isG){var gr=gpBlocks(sh);B=gr.B;who=gr.who}
   else if(isPlan){var di=sh.querySelector("input[type=date]"),dv=di&&di.value?di.value.split("-").reverse().join("."):(function(){var d=new Date();return ("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+d.getFullYear()})();who="Tarih: "+dv;
-   var rows=[{h:1,c:["Amaç","Öğretim yöntemi","Önceki ders","İlerleme durumu"]}];
+   var rows=[{h:1,c:["Amaç","Öğretim yöntemi","Önceki dersler","İlerleme durumu"]}];
    var seen={},ord=[];sh.querySelectorAll("li[data-pg]").forEach(function(li){var a=li.dataset.pa;if(!seen[a]){seen[a]=[];ord.push(a)}seen[a].push(li.dataset)});
    ord.forEach(function(a){rows.push({g:1,c:[a,"","",""]});seen[a].forEach(function(d){rows.push({c:[d.pg,d.pmm||"—",d.pq||"—",(d.pp||"—")+(d.pd=="1"?"\n✓ Öğretim tamamlandı":"")]})})});
    B=[{k:"h1c",t:"Ders planı"},{k:"p",lines:["Öğrenci: "+(k?k.name:"")]},{k:"tb",cw:[0.4,0.2,0.2,0.2],rows:rows}]}
@@ -570,8 +571,8 @@ function repV(k){
  var h="<div class=sheet><h2>Değerlendirme raporu</h2><p><b>"+E(k.name)+"</b><br>Doğum: "+D(k.birth)+" · Tanı: "+E(k.dx||"—")+"<br>Kuruma başlama: "+D(k.start)+"<br>Değerlendirme: "+D(k.e1)+" – "+D(k.e2)+"</p>",t="",va=VA();
  va.forEach(function(A){var p=0,m=0,sp=0,sm=0;
   A.its.forEach(function(x){var r=k.res[x.id];if(r=="+")p++;else if(r=="-")m++;
-   (SUB[x.id]||[]).forEach(function(sx,ki){var a=x.id+"."+ki,q=k.res[a];if(q=="+")sp++;else if(q=="-")sm++;
-    sx[1].forEach(function(_,oi){var w=k.res[a+"."+oi];if(w=="+")sp++;else if(w=="-")sm++})})});
+   (SUB[x.id]||[]).forEach(function(sx,ki){var a=x.id+"."+ki,q=k.res[a];if(hsd(a))return;if(q=="+")sp++;else if(q=="-")sm++;
+    sx[1].forEach(function(_,oi){var w=k.res[a+"."+oi];if(hsd(a+"."+oi))return;if(w=="+")sp++;else if(w=="-")sm++})})});
   if(p+m+sp+sm)t+="<tr><td>"+E(A.name)+"</td><td>"+p+"</td><td>"+m+"</td><td>"+(A.its.length-p-m)+"</td><td>"+sp+"</td><td>"+sm+"</td></tr>"});
  h+=gelV(k);h+=t?"<table><tr><th>Alan</th><th>+</th><th>−</th><th>Boş</th><th>Alt +</th><th>Alt −</th></tr>"+t+"</table>":"<p class=mut>Henüz değerlendirme girilmedi.</p>";
  [["+","✔ Yapabildikleri"],["-","✘ Yapamadıkları"]].forEach(function(sg){var b="";
@@ -632,7 +633,7 @@ function idTxt(id){var m=id.split("."),p=m[0].split("-"),a=+p[0],i=+p[1];if(m.le
 function snapOf(k,full){var can=[],no=[],bep=[],won=[];
  VA().forEach(function(A){var c=[],n=[],b=[],w=[];
   A.its.forEach(function(x){var ids=[[x.id,1]];(SUB[x.id]||[]).forEach(function(s,ki){ids.push([x.id+"."+ki,2]);s[1].forEach(function(_,oi){ids.push([x.id+"."+ki+"."+oi,3])})});
-   ids.forEach(function(q){var id=q[0],lv=q[1],t=idTxt(id);if(!t)return;var r=k.res[id];
+   ids.forEach(function(q){var id=q[0],lv=q[1],t=idTxt(id);if(!t||hsd(id))return;var r=k.res[id];
     if(lv<3){if(r=="+")c.push(t);else if(r=="-")n.push(t)}
     if(full||lv<3){if(k.bep[id])b.push(t);if(k.prog[id]=="k")w.push(t)}})});
   if(c.length)can.push({a:A.name,i:c});if(n.length)no.push({a:A.name,i:n});if(b.length)bep.push({a:A.name,i:b});if(w.length)won.push({a:A.name,i:w})});
@@ -950,7 +951,7 @@ function gpV(){var kids=S.kids.filter(function(k){return k.grp==V.gg});
  return h+"<p class=noprint><button data-a=print>Yazdır / PDF</button></p></div></div>"}
 function gpBlocks(sh){var di=sh.querySelector("input[type=date]"),dv=di&&di.value?di.value.split("-").reverse().join("."):today().split("-").reverse().join(".");
  var B=[{k:"h1c",t:"Grup ders planı"},{k:"p",lines:["Grup: "+sh.dataset.gp]}];
- sh.querySelectorAll(".gk").forEach(function(g){var rows=[{h:1,c:["Amaç","Öğretim yöntemi","Önceki ders","İlerleme durumu"]}],seen={},ord=[];
+ sh.querySelectorAll(".gk").forEach(function(g){var rows=[{h:1,c:["Amaç","Öğretim yöntemi","Önceki dersler","İlerleme durumu"]}],seen={},ord=[];
   g.querySelectorAll("li[data-gg]").forEach(function(li){var a=li.dataset.pa;if(!seen[a]){seen[a]=[];ord.push(a)}seen[a].push(li.dataset)});
   ord.forEach(function(a){rows.push({g:1,c:[a,"","",""]});seen[a].forEach(function(d){rows.push({c:[d.pg,d.pmm||"—",d.pq||"—",(d.pp||"—")+(d.pd=="1"?"\n✓ Öğretim tamamlandı":"")]})})});
   B.push({k:"h2",t:g.dataset.name});if(rows.length>1)B.push({k:"tb",cw:[0.4,0.2,0.2,0.2],rows:rows});else B.push({k:"p",lines:["Plana alınmış hedef yok."]})});
@@ -983,7 +984,22 @@ var infoV3=infoV;infoV=function(k){var op=V.ri!==undefined?V.ri:(!k.birth&&!k.dx
 document.addEventListener("click",function(e){var el=e.target.closest("[data-a=open],[data-a=savek]");if(el)V.ri=undefined;var sm=e.target.closest("details[data-rk=info]>summary");if(sm)V.ri=!sm.parentNode.open},true);
 /* --- Ders planı geçmişi: önceki ders performansı + yeni plan kapısı --- */
 function prevV(k,id){var H=k.hist||[];for(var i=H.length-1;i>=0;i--){var it=(H[i].items||[]).filter(function(x){return x.id==id})[0];if(it&&it.p)return {at:H[i].at,p:it.p}}return null}
-function prevLine(k,id){var q=prevV(k,id);return q?"<br><small class=mut>Önceki ders ("+E(new Date(q.at).toLocaleDateString("tr-TR"))+"): "+E(q.p)+"</small>":""}
+var ABR={"Fiziksel yardım":"F.Y","Model olma":"M.O","Sözel ipucu":"S.İ","Bağımsız":"B"};
+function prevCells(k,id){return (k.hist||[]).slice(-2).map(function(h){var it=(h.items||[]).filter(function(x){return x.id==id})[0];return {d:new Date(h.at).toLocaleDateString("tr-TR",{day:"2-digit",month:"2-digit"}),p:(it&&it.p)?(ABR[it.p]||it.p):"—"}})}
+function prevTxt(k,id){var c=prevCells(k,id);if(!c.length||c.every(function(x){return x.p=="—"}))return "";return c.map(function(x){return x.d+": "+x.p}).join("\n")}
+function prevLine(k,id){var c=prevCells(k,id);if(!c.length)return "";return "<div style=\"display:flex;gap:8px;margin-top:6px\">"+c.map(function(x){return "<div style=\"flex:1;border:1px solid var(--bd);border-radius:8px;padding:4px 6px;text-align:center\"><small class=mut>"+E(x.d)+"</small><br><b>"+E(x.p)+"</b></div>"}).join("")+"</div>"}
+function wonFold(html){var d=document.createElement("div");d.innerHTML=html;
+ d.querySelectorAll(".card").forEach(function(c,i){var rows=[].slice.call(c.querySelectorAll(".row")).filter(function(r){return r.querySelector(".done")});if(!rows.length)return;
+  var h=c.previousElementSibling,key="won"+i+"-"+((h&&h.tagName=="H2")?h.textContent:"");
+  var dt=document.createElement("details");dt.className="acc sub";dt.setAttribute("data-rk",key);if(V.ro&&V.ro[key])dt.open=true;
+  dt.innerHTML="<summary>Kazanılan amaçlar <small class=mut>"+rows.length+"</small></summary>";
+  rows.forEach(function(r){dt.appendChild(r)});c.appendChild(dt)});
+ d.querySelectorAll(".card").forEach(function(c){var h=c.previousElementSibling;if(!h||h.tagName!="H2")return;
+  var nm=h.textContent,key="ar-"+nm,open=c.querySelectorAll("input[data-a=pick]:checked").length,tot=c.querySelectorAll("input[data-a=pick]").length;
+  var dt=document.createElement("details");dt.className="acc";dt.setAttribute("data-rk",key);if(V.ro&&V.ro[key])dt.open=true;
+  var sm=document.createElement("summary");sm.innerHTML=E(nm)+" <small class=mut>"+tot+" amaç"+(open?" · "+open+" seçili":"")+"</small>";
+  dt.appendChild(sm);c.parentNode.insertBefore(dt,h);dt.appendChild(c);h.remove()});
+ return d.innerHTML}
 var planV4=planV;planV=function(k){var sv=V.plan;if(k.cur)V.plan=1;var o;try{o=planV4(k)}finally{V.plan=sv}
  var nS=notesV(k),H=(k.hist||[]).slice().reverse(),hist="";
  if(H.length)hist="<details class=acc data-rk=hist><summary>Önceki ders planları <small class=mut>"+H.length+"</small></summary>"+H.map(function(h){var key="hist"+h.at;return "<details class=\"acc sub\" data-rk=\""+key+"\""+(V.ro&&V.ro[key]?" open":"")+"><summary>"+E(new Date(h.at).toLocaleDateString("tr-TR"))+" <small class=mut>"+(h.items||[]).length+" amaç</small></summary><ul class=rs>"+(h.items||[]).map(function(x){return "<li>"+E(idTxt(x.id)||x.id)+" — <b>"+E(x.p||"işaretlenmedi")+"</b></li>"}).join("")+"</ul></details>"}).join("")+"</details>";
@@ -996,7 +1012,7 @@ var planV4=planV;planV=function(k){var sv=V.plan;if(k.cur)V.plan=1;var o;try{o=p
  var sb="<p class=noprint style=\"display:flex;gap:8px;flex-wrap:wrap;margin:0\"><button class=p data-a=psave>Kaydet</button> <button data-a=print>Yazdır / PDF</button></p>"+(V.ps?"<p class=\""+(V.psOk?"mut":"note")+" noprint\" style=\"margin:8px 0 0\">"+E(V.ps)+"</p>":"")+((k.cur&&k.cur.sv)?"<p class=\"mut noprint\" style=\"margin:6px 0 0;font-size:.82rem\">Son kaydedilen: "+E(new Date(k.cur.sv).toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}))+"</p>":"");
  after=after.replace("<p class=noprint><button data-a=print>Yazdır / PDF</button></p>",sb);
  (V.pmiss||[]).forEach(function(id){after=after.replace("<li data-pid=\""+E(id)+"\"","<li class=miss data-pid=\""+E(id)+"\"")});
- if(k.cur)body="<h2>Amaçları seç</h2><p class=mut style=\"margin:0 0 8px;font-size:.88rem\">Plana almak istediğin amaçları işaretle. Seçtiklerin aşağıdaki ders planına eklenir.</p>"+chooser+after;
+ if(k.cur)body=after+"<h2>Amaçları seç</h2><p class=mut style=\"margin:0 0 8px;font-size:.88rem\">Plana almak istediğin amaçları işaretle. Seçtiklerin yukarıdaki ders planına eklenir.</p>"+wonFold(chooser);
  return nS+hist+btn+gm+body};
 document.addEventListener("click",function(e){var el=e.target.closest("[data-a=psave]");if(!el)return;var k=kid();if(!k||!k.cur)return;
  var L=kidGoals(k),miss=L.filter(function(d){return !d.pmm});
@@ -1014,6 +1030,29 @@ document.addEventListener("click",function(e){var el=e.target.closest("[data-a=g
   k.hist=k.hist||[];k.hist.push({at:(k.cur&&k.cur.at)||Date.now(),items:L.map(function(d){return {id:d.pid,p:d.pp,m:d.pmm||""}})});
   L.forEach(function(d){var q=(k.pm||{})[d.pid];if(q){delete q.p;delete q.auto}})}
  k.cur={at:Date.now()};save()},true);
+/* ===== Amaç metni düzenleme ===== */
+S.txt=S.txt||{};S.hs=S.hs||{};var ORIG={};
+function setTxt(id,t){var q=id.split("."),b=q[0],bp=b.split("-"),a=+bp[0],i=+bp[1];
+ if(q.length==1){var n=AREAS[a][1].length;if(i<n){if(!(id in ORIG))ORIG[id]=AREAS[a][1][i];AREAS[a][1][i]=t;S.txt[id]=t}else if(S.extra[a])S.extra[a][i-n]=t}
+ else if(SUB[b]&&SUB[b][+q[1]]){if(!(id in ORIG))ORIG[id]=q.length==2?SUB[b][+q[1]][0]:SUB[b][+q[1]][1][+q[2]];if(q.length==2)SUB[b][+q[1]][0]=t;else SUB[b][+q[1]][1][+q[2]]=t;S.txt[id]=t}}
+function applyTxt(){Object.keys(S.txt||{}).forEach(function(id){try{setTxt(id,S.txt[id])}catch(e){}})}
+function resetTxt(id){if(!(id in ORIG))return;var o=ORIG[id];delete S.txt[id];var q=id.split("."),b=q[0],bp=b.split("-");
+ if(q.length==1)AREAS[+bp[0]][1][+bp[1]]=o;else if(q.length==2)SUB[b][+q[1]][0]=o;else SUB[b][+q[1]][1][+q[2]]=o;delete ORIG[id]}
+function etBox(id){var t=idTxt(id);return "<textarea id=etxt style=\"width:100%;min-height:72px\">"+E(t)+"</textarea><div style=\"display:flex;gap:8px;flex-wrap:wrap;margin-top:6px\"><button class=p data-a=etsv data-id="+id+">Kaydet</button><button data-a=etc>İptal</button>"+((id in ORIG)?"<button data-a=etr data-id="+id+">Aslına döndür</button>":"")+"</div>"}
+function edSub(id){var sub=SUB[id];if(!sub)return "";var h="";
+ sub.forEach(function(sx,ki){var a=id+"."+ki;h+=edRow(a,1);sx[1].forEach(function(o,oi){h+=edRow(a+"."+oi,2)})});return h}
+function edRow(id,lv){var t=idTxt(id);if(S.hs&&S.hs[id])return "<div class=\"row sub"+lv+"\"><div class=mut><small class=tag>"+(lv==1?"K.D.A.":"Ö.A.")+"</small> <s>"+E(t)+"</s></div><div class=ctl><button data-a=dsr data-id="+id+">Geri getir</button></div></div>";
+ if(hsd(id))return "";
+ var ask=V.dc==id;return "<div class=\"row sub"+lv+"\"><div><small class=tag>"+(lv==1?"K.D.A.":"Ö.A.")+"</small> "+(V.et==id?etBox(id):E(t))+"</div><div class=ctl>"+(V.et==id?"":(ask?"<span class=note>Silinsin mi?</span> <button class=p data-a=dsy data-id="+id+">Evet, sil</button> <button data-a=dsn>Vazgeç</button>":"<button data-a=etx data-id="+id+">Düzenle</button> <button data-a=dsx data-id="+id+">Sil</button>"))+"</div></div>"}
+document.addEventListener("click",function(e){var el=e.target.closest("[data-a=dsx],[data-a=dsy],[data-a=dsn],[data-a=dsr]");if(!el)return;var a=el.dataset.a,id=el.dataset.id;
+ if(a=="dsx")V.dc=id;else if(a=="dsn")V.dc=null;
+ else if(a=="dsr"){delete S.hs[id];save()}
+ else if(a=="dsy"){S.hs=S.hs||{};S.hs[id]=1;V.dc=null;S.kids.forEach(function(k){["res","rap","prog","bep","pick","pm"].forEach(function(f){var o=k[f];if(!o)return;Object.keys(o).forEach(function(x){if(x==id||x.indexOf(id+".")==0)delete o[x]})})});save()}},true);
+applyTxt();var migAll0=migAll;migAll=function(){var r=migAll0.apply(this,arguments);S.txt=S.txt||{};S.hs=S.hs||{};applyTxt();return r};
+document.addEventListener("click",function(e){var el=e.target.closest("[data-a=etx],[data-a=etsv],[data-a=etc],[data-a=etr]");if(!el)return;var a=el.dataset.a,id=el.dataset.id;
+ if(a=="etx")V.et=id;else if(a=="etc")V.et=null;
+ else if(a=="etr"){resetTxt(id);V.et=null;save()}
+ else if(a=="etsv"){var v=(document.getElementById("etxt")||{}).value;v=(v||"").trim();if(v){if(id in ORIG||v!=idTxt(id)){setTxt(id,v)}V.et=null;save()}}},true);
 var R0=R;R=function(){var ap=document.getElementById("app");
  if(ROLE=="boot"){ap.className="";ap.innerHTML="<div class=empty style=\"padding-top:30vh\"><b>Yükleniyor…</b></div>";return}
  if(ROLE=="parent"){ap.className="";ap.innerHTML=parentV();return}
