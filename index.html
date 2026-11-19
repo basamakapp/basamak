@@ -1000,8 +1000,14 @@ var planV4=planV;planV=function(k){var sv=V.plan;if(k.cur)V.plan=1;var o;try{o=p
  return nS+hist+btn+gm+body};
 document.addEventListener("click",function(e){var el=e.target.closest("[data-a=psave]");if(!el)return;var k=kid();if(!k||!k.cur)return;
  var L=kidGoals(k),miss=L.filter(function(d){return !d.pmm});
- if(miss.length){V.pmiss=miss.map(function(d){return d.pid});V.psOk=false;V.ps="Kaydedilemedi: "+miss.length+" amaçta öğretim yöntemi seçilmedi (kırmızı çizgiyle işaretli).";}
+ if(miss.length){V.pmiss=miss.map(function(d){return d.pid});V.psOk=false;V.ps="";popMsg("Kaydedilemedi",miss.length+" amaçta öğretim yöntemi seçilmedi. Eksik amaçlar kırmızı çizgiyle işaretlendi. Hepsine yöntem seçip tekrar Kaydet'e bas.")}
  else{V.pmiss=[];V.psOk=true;V.ps="✓ Ders planı kaydedildi.";k.cur.sv=Date.now();save()}},true);
+function popMsg(t,m){var old=document.getElementById("popmsg");if(old)old.remove();var d=document.createElement("div");d.id="popmsg";d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px";
+ d.innerHTML="<div style=\"background:var(--card,#fff);color:var(--ink,#111);max-width:360px;width:100%;border-radius:16px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.35)\"><h3 style=\"margin:0 0 8px\">"+E(t)+"</h3><p style=\"margin:0 0 16px;line-height:1.5\">"+E(m)+"</p><button class=p id=popok style=\"width:100%\">Tamam</button></div>";
+ document.body.appendChild(d);var c=function(){d.remove()};d.addEventListener("click",function(ev){if(ev.target===d)c()});d.querySelector("#popok").addEventListener("click",c)}
+document.addEventListener("click",function(e){var el=e.target.closest("[data-a=print]");if(!el||el.dataset.bep)return;var sh=el.closest(".sheet");if(!sh||!sh.querySelector("li[data-pid]"))return;var k=kid();if(!k||!k.cur)return;
+ var miss=kidGoals(k).filter(function(d){return !d.pmm});if(!miss.length)return;e.stopPropagation();e.preventDefault();V.pmiss=miss.map(function(d){return d.pid});
+ popMsg("PDF oluşturulamadı",miss.length+" amaçta öğretim yöntemi seçilmedi. Önce hepsine yöntem seç.");R()},true);
 document.addEventListener("click",function(e){var el=e.target.closest("[data-a=gen]");if(!el)return;var k=kid();if(!k)return;V.gm="";
  if(k.cur){var L=kidGoals(k),miss=L.filter(function(d){return !d.pp});
   if(miss.length){V.gm="Yeni plan için önce mevcut plandaki tüm hedeflerin ilerleme durumunu işaretle. Eksik: "+miss.length+" hedef.";e.stopImmediatePropagation();R();return}
